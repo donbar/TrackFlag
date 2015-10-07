@@ -1,0 +1,57 @@
+/* Empty. Add your own CSS if you like */
+
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+
+/* Portrait layout (default) */
+    .appportrait {
+        position:absolute;             /* position in the center of the screen */
+        left: 0%;
+        top:10%;
+                                       /* offset horizontal: half of text area width */
+    }
+
+    /* Landscape layout (with min-width) */
+    .applandscape {
+        position:absolute;             /* position in the center of the screen */
+        left: 0%;
+        top:10%;
+    }
+}
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+.lostconnection{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: none;
+}
+.checkered{
+    background-color: white;
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), 
+        linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+    background-size:50px 50px;
+    background-position: 0 0, 25px 25px;
+}
+
+
+
+div.container{ background: #ffffff; height: 100%; width: 100%; position:absolute;}
+div.globalflags{background: #ffffff; height: 50%; width: 100%; text-align: center; vertical-align: middle; position:absolute; }
+div.localflags{background: #ffffff; height: 50%; width: 100%; text-align: center; vertical-align: middle; position:fixed; bottom: 0%; right:0%;}

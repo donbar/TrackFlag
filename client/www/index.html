@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>TrackFlag - Real-time Racetrack Flags</title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/app.js"></script>
+    <script src="js/trackflag.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+  <body ng-app="trackflag">
+    <form name='trackflag'>
+      <input type='hidden' id='event_id' name='event_id'></input>
+  		<div id='runscript' style='display: none'></div>
+  		<div id='runscriptlocal' style='display: none'></div>
+      <div id='lostconnection' class='lostconnection'><img src='img/lostconnection.jpg'></div>
+      <div id='divlogo'>
+         <center><img src='img/nasalogo.png' border=0></center>
+      </div>
+      <span id="txtMessage"></span>
+  			<div id='container' class='container'>
+  			<div id='globalflags' class="globalflags">
+          <canvas id="redFlag"></canvas>
+          <canvas id="greenFlag"></canvas>
+          <canvas id="whiteFlag"></canvas>
+          <canvas id="blackFlag"></canvas>
+          <canvas id="safetyFlag"></canvas>
+          <canvas id="restartFlag"></canvas>
+          <canvas id="doubleyellowFlag"></canvas>
+    		</div>
+  	    <div id='localflags' class='localflags'>
+          <canvas id="standingYellow"></canvas>
+          <canvas id="debrisFlag"></canvas>
+          <canvas id="wavingYellow"></canvas>
+        </div>
+      </span>
+	  </form>
+  </body>
+  <script>
+    getLocation();
+  	checkforGlobalCommand();
+  </script>
+</html>
+
