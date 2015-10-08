@@ -3,6 +3,13 @@
     include "includes/trackflag.css";
     $event_id = $_REQUEST['event_id'];
 
+    if($event_id == NULL){
+      print"
+      <script>
+        location.replace('login.php');
+      </script>";
+    }
+
     if($_REQUEST['initializedb'] == 1){
         include "includes/dbconnection.php";
         $db = getdbconnection();
