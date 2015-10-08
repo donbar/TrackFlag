@@ -13,8 +13,8 @@ select{
 }
 #verticaldiv {
     width: 200px;
-    height: 60%;
-    padding: 10px;
+    height: 550px;
+    padding: 0px;
     border: 1px solid #aaaaaa;
     top: 0;
     position: relative;
@@ -23,7 +23,7 @@ select{
 }
 #previewdiv {
     width: 500px;
-    height: 200;
+    height: 200px;
     padding: 10px;
     border: 0px solid #aaaaaa;
     float: right;

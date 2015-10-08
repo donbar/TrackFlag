@@ -1,8 +1,46 @@
+<!DOCTYPE html>
 <?php
     include "includes/trackflag.css";
-    ?>
+    $event_id = $_REQUEST['event_id'];
 
-<!DOCTYPE html>
+    if($_REQUEST['initializedb'] == 1){
+        include "includes/dbconnection.php";
+        $db = getdbconnection();
+        $query = "select count(*) as cnt from flag where event_id = " . $event_id;
+        $event_result = $db->query($query);
+        $event_row = $event_result->fetch(PDO::FETCH_ASSOC);
+        if($event_row['cnt'] > 0){
+            $db->connection = null;
+        }else{
+          $sql = "insert into flag (id, flag_name, active, event_id) values (1,'black',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (2,'white',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (3,'safety',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (4,'fullyellow',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (5,'red',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (6,'green',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (7,'restart',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (8,'debris',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (9,'yellow',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (10,'wavingyellow',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (11,'checkered',0," . $event_id . ")";
+          $event_result = $db->query($sql);
+          $db->connection = null;
+        }
+
+    }
+?>
+
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,15 +51,15 @@
   <body onload='checkforStatus(); loadpreview();'>
     <div id="txtGetStatus" style='display:none'></div>
     <form name='trackflag'>
-            <div id='verticaldiv' class='verticaldiv'>Active Local Flags
-              <div id='activelocalflags'>
+            <span id='verticaldiv' class='verticaldiv'>Active Local Flags
+              <span id='activelocalflags'>
                 <canvas id="localdebrisFlag" style='display:none'></canvas>
                 <canvas id="localyellowFlag" style='display:none'></canvas>
                 <canvas id="localwavingFlag" style='display:none'></canvas>
-            </div></div>
+            </span></span>
             <div id='previewdiv' class='previewdiv'>Driver View</div>
             <br>
-      <input type='hidden' id='event_id' name='event_id' value=1></input>
+      <input type='hidden' id='event_id' name='event_id' value=<?php print $event_id ?>></input>
       <input type='hidden' id='action1' name='action1'></input>
       <input type='hidden' id='action2' name='action2'></input>
       <input type='hidden' id='action3' name='action3'></input>
