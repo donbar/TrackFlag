@@ -8,6 +8,16 @@ if ($event_id == ""){
 	$event_id = 0;
 }
 
+
+$track_id = $_REQUEST['track_id'];
+if ($track_id > 0){
+    # this call is coming in from dispatch and the event IDs don't line up, what's active for this track?
+    $sql = "select id from event where track_id = " . $track_id . " and now() between begin_date and end_date";
+    $event_result = $db->query($sql);
+    $event_row = $event_result->fetch(PDO::FETCH_ASSOC);
+    $event_id = $event_row['id'];
+}
+
 $event_query = "SELECT flag.* from flag where event_id = " . $event_id;
 $event_result = $db->query($event_query);
 
@@ -87,6 +97,7 @@ while ($event_row = $event_result->fetch(PDO::FETCH_ASSOC)){
         $lscale++;
     }  
     if ($event_row['active'] == 1 && $flag == 10){
+        $command .= "hidewavingYellow('" . $event_row['turn']."',lscale);";
         $command .= "showwavingYellow('" . $event_row['turn']."',lscale);";
         $lscale++;
     }  

@@ -552,7 +552,7 @@ function showlocalyellow(turns){
 
 function showwavingyellow(turns){
     //showwavingyellow
-
+  hidewavingYellow();
     var canvas = document.getElementById('localwavingFlag');
 	blinkwavingYellow(canvas,turns.trim(), 1);
 
