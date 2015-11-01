@@ -6,8 +6,11 @@ $db = getdbconnection();
 $event_id = $_REQUEST['event_id'];
 $action = $_REQUEST['action'];
 $id = $_REQUEST['id'];
-$turn = $_REQUEST['turn'];
-
+if(isset($_REQUEST['turn'])){
+	$turn = $_REQUEST['turn'];
+}else{
+	$turn = "";
+}
 if ($event_id == ""){
 	$event_id = 0;
 }

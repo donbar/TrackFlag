@@ -5,24 +5,14 @@ function checkforStatus() {
  			var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("txtGetStatus").innerHTML = xmlhttp.responseText;
-                    executeJS();
+                    eval(xmlhttp.responseText);
                 }
             }
-            var url = 'http://trackflag.nasasafety.com/server/adminstatusajax.php?event_id=' + document.getElementById('event_id').value.toString();
+            var url = 'https://trackflag.nasasafety.com/server/adminstatusajax.php?event_id=' + document.getElementById('event_id').value.toString();
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
        randomrefresh = 5000;
        setTimeout(checkforStatus, randomrefresh );
-}
-
-function executeJS() {
-
-			if ( document.getElementById("txtGetStatus").innerHTML != "" ) {
-			 		eval(document.getElementById("txtGetStatus").innerHTML);
-					document.getElementById("txtGetStatus").innerHTML = '';
-			}
-
 }
 
 function clickbtn(btnid){
@@ -47,7 +37,7 @@ function clearallflags(e) {
 
     }
 
-    xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=-1', true);
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=-1', true);
     xmlhttpevent.send();
 
 }
@@ -62,7 +52,7 @@ function clearglobalflags(e) {
 
     }
 
-    xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=-2', true);
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=-2', true);
     xmlhttpevent.send();
 
 }
@@ -76,14 +66,14 @@ function clearlocalflags(e) {
 
     }
 
-    xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=-3', true);
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=-3', true);
     xmlhttpevent.send();
 
 }
 
 function loadpreview() {
   	div = document.getElementById('previewdiv');
-  	div.innerHTML = "<iframe src='http://trackflag.nasasafety.com/web' width=100% height=100%></iframe>";
+  	div.innerHTML = "<iframe src='https://trackflag.nasasafety.com/web' width=100% height=100%></iframe>";
 }
 
 function clickblack(e, noupdate) {
@@ -107,7 +97,7 @@ function clickblack(e, noupdate) {
     }
 
 	if(noupdate != 1){
-    	xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=1&action='+action1.toString(), true);
+    	xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=1&action='+action1.toString(), true);
     	xmlhttpevent.send();
     }
 
@@ -133,7 +123,7 @@ function clickwhite(e, noupdate) {
 
     }
 	if(noupdate != 1){
-   	 xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=2&action='+action2.toString(), true);
+   	 xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=2&action='+action2.toString(), true);
    	 xmlhttpevent.send();
 	}
 
@@ -160,7 +150,7 @@ function clicksafety(e, noupdate) {
     }
 
 	if(noupdate != 1){
-   	 xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=3&action='+action3.toString(), true);
+   	 xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=3&action='+action3.toString(), true);
     	xmlhttpevent.send();
     }
 
@@ -187,7 +177,7 @@ function clickdblyellow(e, noupdate) {
     }
 
 	if(noupdate != 1){
-  	  xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=4&action='+action4.toString(), true);
+  	  xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=4&action='+action4.toString(), true);
     	xmlhttpevent.send();
     }
 
@@ -215,7 +205,7 @@ function clickred(e, noupdate) {
     }
 
 	if(noupdate != 1){
-    	xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=5&action='+action5.toString(), true);
+    	xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=5&action='+action5.toString(), true);
    	 xmlhttpevent.send();
    	}
 
@@ -243,7 +233,7 @@ function clickgreen(e, noupdate) {
     }
 
 	if(noupdate != 1){
-   	 xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=6&action='+action6.toString(), true);
+   	 xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=6&action='+action6.toString(), true);
     	xmlhttpevent.send();
     }
 
@@ -270,7 +260,7 @@ function clickrestart(e, noupdate) {
     }
 
 	if(noupdate != 1){
-   	 xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=7&action='+action7.toString(), true);
+   	 xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=7&action='+action7.toString(), true);
    	 xmlhttpevent.send();
    	}
 
@@ -298,7 +288,7 @@ function clickcheckered(e, noupdate) {
     }
 
 	if(noupdate != 1){
-    	xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=11&action='+action11.toString(), true);
+    	xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=11&action='+action11.toString(), true);
    	 xmlhttpevent.send();
    	}
 
@@ -320,7 +310,7 @@ function clickdebris(e, noupdate) {
         }
 
     }
-    	xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=8&action=1&turn='+turns.toString(), true);
+    	xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=8&action=1&turn='+turns.toString(), true);
     	xmlhttpevent.send();
 }
 
@@ -339,7 +329,7 @@ function clickstandingyellow(e) {
     }
 
 
-    	xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=9&action=1&turn='+turns.toString(), true);
+    	xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=9&action=1&turn='+turns.toString(), true);
     	xmlhttpevent.send();
 
 
@@ -364,7 +354,7 @@ function clickwavingyellow(e) {
         }
     }
 
-    	xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=10&action=1&turn='+turns.toString(), true);
+    	xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=10&action=1&turn='+turns.toString(), true);
     	xmlhttpevent.send();
 
 
@@ -380,12 +370,16 @@ function clearlocaldebris(e) {
         }
     }
 
-    xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=8&action=0', true);
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=8&action=0', true);
     xmlhttpevent.send();
     document.getElementById("localdebrisFlag").style.display = "none";
 
 }
 
+function hidelocaldebris(e) {
+  document.getElementById("localdebrisFlag").style.display = "none";
+
+}
 
 function clearlocalyellow(e) {
   	event_id = document.getElementById('event_id').value;
@@ -397,9 +391,14 @@ function clearlocalyellow(e) {
         }
     }
 
-    xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=9&action=0', true);
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=9&action=0', true);
     xmlhttpevent.send();
     document.getElementById("localyellowFlag").style.display = "none";
+
+}
+
+function hidelocalyellow(e) {
+  document.getElementById("localyellowFlag").style.display = "none";
 
 }
 
@@ -414,8 +413,19 @@ function clearwavingyellow(e) {
         }
     }
 
-    xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=10&action=0', true);
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=10&action=0', true);
     xmlhttpevent.send();
+    document.getElementById("localwavingFlag").style.display = "none";
+    var canvas = document.getElementById('localwavingFlag');
+    ctx = canvas.getContext('2d');
+    var clientHeight = 100;
+    var clientWidth = 100;
+    ctx.clearRect(0, 0, clientWidth, clientHeight);
+    clearTimeout(wavingyellowTimeout);    
+
+}
+
+function hidewavingyellow(e) {
     document.getElementById("localwavingFlag").style.display = "none";
     var canvas = document.getElementById('localwavingFlag');
     ctx = canvas.getContext('2d');

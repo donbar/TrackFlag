@@ -1,6 +1,6 @@
 var wavingyellowTimeout;
 var geteventtimeout;
-function getRaceEvent(lat, lon){
+function getRaceEvent(){
         var xmlhttpevent = new XMLHttpRequest();
         xmlhttpevent.onreadystatechange = function() {
             if (xmlhttpevent.readyState == 4 && xmlhttpevent.status == 200) {
@@ -15,7 +15,7 @@ function getRaceEvent(lat, lon){
             }
 
         }
-        xmlhttpevent.open("GET", 'http://trackflag.nasasafety.com/server/geteventajax.php?lat='+lat.toString()+'&lon='+lon.toString(), true);
+        xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/geteventajax.php', true);
         xmlhttpevent.send();
 }
 
@@ -35,7 +35,7 @@ function getGlobalCommand() {
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     document.getElementById("lostconnection").style.display = "none";
-                    document.getElementById("runscript").innerHTML = xmlhttp.responseText;
+                    eval(xmlhttp.responseText);
                 }else if((xmlhttp.status == 0 || xmlhttp.status == 404) && xmlhttp.readyState == 4){
                     // lost connection with server, clear screen and show oopsies div
                     hideDoubleYellowFlag();
@@ -52,7 +52,7 @@ function getGlobalCommand() {
                     document.getElementById("lostconnection").style.display = "inline-block";
                 }
             }
-            var url = 'http://trackflag.nasasafety.com/server/statusajax.php?event_id=' + document.getElementById('event_id').value.toString();
+            var url = 'https://trackflag.nasasafety.com/server/statusajax.php?event_id=' + document.getElementById('event_id').value.toString();
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
 
@@ -60,30 +60,6 @@ function getGlobalCommand() {
         setTimeout(getGlobalCommand, randomrefresh );
 }
 
-function checkforGlobalCommand() {
-
-            if ( document.getElementById("runscript").innerHTML != "" ) {
-                    eval(document.getElementById("runscript").innerHTML);
-                    document.getElementById("runscript").innerHTML = '';
-            }
-       randomrefresh = 500;
-       setTimeout(checkforGlobalCommand, randomrefresh );
-}
-
-function getLocation() {
-
-        navigator.geolocation.getCurrentPosition(gotLocation, noLocation);
-    }
-function noLocation(){
-     // do nothing;
-}
-
-function gotLocation(position){
-        lat =  position.coords.latitude;
-        lon =  position.coords.longitude;
-
-        getRaceEvent(lat, lon);
-}
 
 function showError(error) {
     switch(error.code) {
@@ -129,7 +105,7 @@ function showRedFlag(scale){
     context.stroke();
 
 
-    var textString = 'RED';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);
@@ -168,7 +144,7 @@ function showDoubleYellowFlag(scale){
     context.stroke();
 
 
-    var textString = 'YELLOW';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);
@@ -208,7 +184,7 @@ function showGreenFlag(scale){
     context.stroke();
 
 
-    var textString = 'GREEN';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);
@@ -245,7 +221,7 @@ function showWhiteFlag(scale){
     context.strokeStyle = 'black';
     context.stroke();
 
-    var textString = 'WHITE';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);
@@ -284,7 +260,7 @@ function showBlackFlag(scale){
     context.stroke();
 
 
-    var textString = 'BLACK';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);
@@ -339,7 +315,7 @@ function showSafetyFlag(scale){
     ctx.fillRect(0,clientHeight/2 - (barwidth/2),clientWidth,barwidth);
 
 
-    var textString = 'SAFETY';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);
@@ -385,7 +361,7 @@ function showRestartFlag(scale){
     context.strokeStyle = 'black';
     context.stroke();
 
-    var textString = 'RESTART';
+    var textString = '';
     var fontsize = (clientWidth/textString.length);
     var divisor = '1.'+textString.length.toString();
     var textheight = (clientHeight / divisor);

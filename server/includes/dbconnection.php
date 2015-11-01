@@ -5,13 +5,11 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 function getdbconnection(){
-	$dbName = "c:\inetpub\wwwroot\\trackflag\server\\trackflag.accdb";
 
-	if (!file_exists($dbName)) {
-		print "could not find database file";
-	    die;
-	}
-	$db = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$dbName; Uid=; Pwd=;");
+	#$db = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$dbName; Uid=; Pwd=;");
+	#$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	$db = new PDO("mysql:host=localhost;dbname=trackflag","trackflag","trackflag");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $db;
 }

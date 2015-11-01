@@ -5,7 +5,7 @@ function getRaceEvent(lat, lon){
         xmlhttpevent.onreadystatechange = function() {
             if (xmlhttpevent.readyState == 4 && xmlhttpevent.status == 200) {
                 document.getElementById("lostconnection").style.display = "none";
-                document.getElementById("txtMessage").innerHTML = xmlhttpevent.responseText;
+                eval(xmlhttpevent.responseText);
                 clearTimeout(geteventtimeout);
             }else if((xmlhttpevent.status == 0 || xmlhttpevent.status == 404) && xmlhttpevent.readyState == 4){
                 // lost connection with server, clear screen and show oopsies div
@@ -35,7 +35,7 @@ function getGlobalCommand() {
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     document.getElementById("lostconnection").style.display = "none";
-                    document.getElementById("runscript").innerHTML = xmlhttp.responseText;
+                    eval(xmlhttp.responseText);
                 }else if((xmlhttp.status == 0 || xmlhttp.status == 404) && xmlhttp.readyState == 4){
                     // lost connection with server, clear screen and show oopsies div
                     hideDoubleYellowFlag();
@@ -59,15 +59,6 @@ function getGlobalCommand() {
         setTimeout(getGlobalCommand, randomrefresh );
 }
 
-function checkforGlobalCommand() {
-
-            if ( document.getElementById("runscript").innerHTML != "" ) {
-                    eval(document.getElementById("runscript").innerHTML);
-                    document.getElementById("runscript").innerHTML = '';
-            }
-       randomrefresh = 500;
-       setTimeout(checkforGlobalCommand, randomrefresh );
-}
 
 function getLocation() {
 

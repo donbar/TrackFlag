@@ -10,7 +10,7 @@
     <script src="js/trackflag.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </head>
-  <body ng-app="trackflag">
+  <body ng-app="trackflag" onload="getRaceEvent();getGlobalCommand();">
     <form name='trackflag'>
       <input type='hidden' id='event_id' name='event_id'></input>
   		<div id='runscript' style='display: none'></div>
@@ -39,9 +39,5 @@
       </span>
 	  </form>
   </body>
-  <script>
-    getLocation();
-  	checkforGlobalCommand();
-  </script>
 </html>
 
