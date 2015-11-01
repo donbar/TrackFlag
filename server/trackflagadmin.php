@@ -66,7 +66,7 @@
             </span></span>
             <div id='previewdiv' class='previewdiv'>Driver View</div>
             <br>
-      <input type='hidden' id='event_id' name='event_id' value=<?php print $event_id ?>></input>
+      <input type='hidden' id='event_id' name='event_id' value='<?php print $event_id ?>'></input>
       <input type='hidden' id='action1' name='action1'></input>
       <input type='hidden' id='action2' name='action2'></input>
       <input type='hidden' id='action3' name='action3'></input>
