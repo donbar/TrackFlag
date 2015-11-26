@@ -47,7 +47,7 @@ function getGlobalCommand() {
                     hideBlackFlag();
                     hideStandingYellowFlag();
                     hideDebrisFlag();
-                    hidewavingYellow();
+                    hidewavingyellow();
                     document.getElementById("lostconnection").style.display = "inline-block";
                 }
             }

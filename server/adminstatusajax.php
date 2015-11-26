@@ -98,9 +98,10 @@ while ($event_row = $event_result->fetch(PDO::FETCH_ASSOC)){
         }
     }
     if ($flag == 11){
+        file_put_contents('don.txt',$event_row['active']);
         if($event_row['active'] == 1){
             $command .= "document.getElementById('action11').value = 0;";
-             $command .= 'clickcheckered(11,1);';
+            $command .= 'clickcheckered(11,1);';
         }else{
             $command .= "document.getElementById('action11').value = 1;";
             $command .= 'clickcheckered(11,1);';

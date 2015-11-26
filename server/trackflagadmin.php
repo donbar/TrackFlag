@@ -52,7 +52,7 @@
   <head>
     <meta charset="utf-8">
     <title>TrackFlag - Real-time Racetrack Flags Administration</title>
-    <script src="js/trackflagserver.js"></script>
+    <script src="js/trackflagserver.js?random=1"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </head>
   <body onload='checkforStatus(); loadpreview();'>
@@ -135,7 +135,7 @@
                 <input type='button' value=' 17  ' class='turnbuttoninactive' id='btn17' onclick='clickbtn(17);'>&nbsp;
                 <input type='button' value=' 18  ' class='turnbuttoninactive' id='btn18' onclick='clickbtn(18);'>&nbsp;
                 <input type='button' value=' 19  ' class='turnbuttoninactive' id='btn19' onclick='clickbtn(19);'>&nbsp;
-                <input type='button' value=' 20  ' class='turnbuttoninactive' id='btn20' onclick='clickbtn(20);'>
+                <input type='button' value=' S/F  ' class='turnbuttoninactive' id='btn20' onclick='clickbtn(20);'>
                 <br><br><br>
 
 

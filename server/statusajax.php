@@ -18,6 +18,7 @@ if ($track_id > 0){
     $event_id = $event_row['id'];
 }
 
+if ($event_id > 0){
 $event_query = "SELECT flag.* from flag where event_id = " . $event_id;
 $event_result = $db->query($event_query);
 
@@ -107,6 +108,7 @@ $command = preg_replace('/gscale/',$gscale, $command);
 $command = preg_replace('/lscale/',$lscale, $command);
 
 echo $command;
+}
 
 $db->connection = null;
 

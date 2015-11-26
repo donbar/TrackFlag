@@ -272,6 +272,7 @@ function clickcheckered(e, noupdate) {
 	action11 = document.getElementById('action11').value;
 	if(action11 == 0){
 	  action11 = 1; 
+
 	  document.getElementById('action11').value = 1;
 	  document.getElementById('checkeredFlag').style.border = "blue 5px solid";
 	}else{
@@ -444,7 +445,11 @@ function gatherturns(){
 		var btnname = 'btn'+t.toString();
 		var fieldname = 'field'+t.toString();
 		if(document.getElementById(fieldname).value==1){
-			turns = turns + t.toString() + ',';
+      if(t == 20){
+          turns = turns + 'S/F,'
+      }else{
+          turns = turns + t.toString() + ',';
+      }
 			document.getElementById(btnname).className = 'turnbuttoninactive';
 			document.getElementById(fieldname).value = 0;
 		}
@@ -552,7 +557,7 @@ function showlocalyellow(turns){
 
 function showwavingyellow(turns){
     //showwavingyellow
-  hidewavingYellow();
+  hidewavingyellow();
     var canvas = document.getElementById('localwavingFlag');
 	blinkwavingYellow(canvas,turns.trim(), 1);
 
