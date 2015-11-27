@@ -38,10 +38,10 @@ if($id == -1){
 	# clear local flags
 	$event_query = "insert into flag_history (id, flag_name, event_id, activation_time, inactivation_time)
 					select " . $id.", flag_name, ".$event_id.", activation_time, now() from flag
-					where event_id = " . $event_id . " and active = 1 and id in (8,9,10)";
+					where event_id = " . $event_id . " and active = 1 and id in (8,9,10,12)";
 	$event_result = $db->query($event_query);
 
-	$event_query = "update flag set active = 0, turn = '' where event_id = " . $event_id . " and id in (8,9,10)";
+	$event_query = "update flag set active = 0, turn = '' where event_id = " . $event_id . " and id in (8,9,10,12)";
 	$event_result = $db->query($event_query);
 }else{
 	if($action == 1){

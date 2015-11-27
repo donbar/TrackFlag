@@ -30,6 +30,7 @@ while ($event_row = $event_result->fetch(PDO::FETCH_ASSOC)){
 //9 ('yellow');
 //10 ('wavingyellow');
 //11 ('checkeredflag');
+//12 ('oilflag');
 
 
 
@@ -134,6 +135,15 @@ while ($event_row = $event_result->fetch(PDO::FETCH_ASSOC)){
             $command .= 'hidewavingyellow();';
         }
     }
+    if ($flag == 12){
+        if($event_row['active'] == 1){
+            $command .= "document.getElementById('action12').value = 0;";
+            $command .= 'showlocaloil("' . $event_row['turn'].'",1); document.getElementById("localoilFlag").style.display = "inline-block";';
+        }else{
+            $command .= "document.getElementById('action12').value = 1;";
+            $command .= 'hidelocaloil();';
+        }
+    }    
 }
 
 $command = preg_replace('/gscale/',$gscale, $command);

@@ -41,6 +41,8 @@
           $event_result = $db->query($sql);
           $sql = "insert into flag (id, flag_name, active, event_id) values (11,'checkered',0," . $event_id . ")";
           $event_result = $db->query($sql);
+          $sql = "insert into flag (id, flag_name, active, event_id) values (12,'oil',0," . $event_id . ")";
+          $event_result = $db->query($sql);          
           $db->connection = null;
         }
 
@@ -63,6 +65,7 @@
                 <canvas id="localdebrisFlag" style='display:none'></canvas>
                 <canvas id="localyellowFlag" style='display:none'></canvas>
                 <canvas id="localwavingFlag" style='display:none'></canvas>
+                <canvas id="localoilFlag" style='display:none'></canvas>
             </span></span>
             <div id='previewdiv' class='previewdiv'>Driver View</div>
             <br>
@@ -78,6 +81,7 @@
       <input type='hidden' id='action9' name='action9'></input>
       <input type='hidden' id='action10' name='action10'></input>
       <input type='hidden' id='action11' name='action11'></input>
+      <input type='hidden' id='action12' name='action12'></input>
   		<div id='runscript' style='display: none'></div>
         <center>
           
@@ -142,6 +146,7 @@
           <canvas id="debrisFlag" style="border: 5px white solid"></canvas>
           <canvas id="standingYellow" style="border: 5px white solid"></canvas>
           <canvas id="wavingYellow" style="border: 5px white solid"></canvas>
+          <canvas id="oilFlag" style="border: 5px white solid"></canvas>
           <br><br><br>
                   </center>
             <span style="float:right">
@@ -409,7 +414,57 @@
     context.lineWidth = 1;
     context.strokeStyle = 'black'
     context.stroke();    
-    canvas.addEventListener("click", clickcheckered, false);        
+    canvas.addEventListener("click", clickcheckered, false);      
+
+    //flag 12
+    var canvas = document.getElementById('oilFlag');
+    var context = canvas.getContext('2d');
+    var height = 100;
+    var width = 100;
+    canvas.height = height;
+    canvas.width = width; 
+    context.beginPath();
+    context.rect(0, 0, width, height);
+    context.fillStyle = 'purple';
+    context.fill();
+    context.lineWidth = 1;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    var barwidth = width / 10;
+
+    var c=document.getElementById("oilFlag");
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 3,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 5,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 7,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 9,0,barwidth,height);
+    canvas.addEventListener("click", clickoil, false);
+
 
 </script>    
 

@@ -315,6 +315,23 @@ function clickdebris(e, noupdate) {
     	xmlhttpevent.send();
 }
 
+function clickoil(e, noupdate) {
+  turns = gatherturns();
+    event_id = document.getElementById('event_id').value;
+  action12 = document.getElementById('action12').value;
+    var xmlhttpevent = new XMLHttpRequest();
+    xmlhttpevent.onreadystatechange = function() {
+        if (xmlhttpevent.readyState == 4 && xmlhttpevent.status == 200) {
+            document.getElementById("runscript").innerHTML = xmlhttpevent.responseText;
+            showlocaloil(turns);
+            document.getElementById("localoilFlag").style.display = "inline-block";
+        }
+
+    }
+      xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=12&action=1&turn='+turns.toString(), true);
+      xmlhttpevent.send();
+}
+
 function clickstandingyellow(e) {
 	turns = gatherturns();
   	event_id = document.getElementById('event_id').value;
@@ -377,8 +394,30 @@ function clearlocaldebris(e) {
 
 }
 
+
+function clearlocaloil(e) {
+    event_id = document.getElementById('event_id').value;
+  action8 = document.getElementById('action12').value;
+  var xmlhttpevent = new XMLHttpRequest();
+    xmlhttpevent.onreadystatechange = function() {
+        if (xmlhttpevent.readyState == 4 && xmlhttpevent.status == 200) {
+            document.getElementById("runscript").innerHTML = xmlhttpevent.responseText;
+        }
+    }
+
+    xmlhttpevent.open("GET", 'https://trackflag.nasasafety.com/server/updateflag.php?event_id='+event_id.toString()+'&id=12&action=0', true);
+    xmlhttpevent.send();
+    document.getElementById("localoilFlag").style.display = "none";
+
+}
+
 function hidelocaldebris(e) {
   document.getElementById("localdebrisFlag").style.display = "none";
+
+}
+
+function hidelocaloil(e) {
+  document.getElementById("localoilFlag").style.display = "none";
 
 }
 
@@ -521,6 +560,69 @@ function showlocaldebris(turns){
     ctx.fillText(textString , (width/2) - (textWidth / 2), (height/2) - (textheight/2));
 
     canvas.addEventListener("click", clearlocaldebris, false);
+}
+
+function showlocaloil(turns){
+    //showlocaldebris
+    var canvas = document.getElementById('localoilFlag');
+    var context = canvas.getContext('2d');
+    var height = 100;
+    var width = 100;
+    canvas.height = height;
+    canvas.width = width; 
+    context.beginPath();
+    context.rect(0, 0, width, height);
+    context.fillStyle = 'purple';
+    context.fill();
+    context.lineWidth = 1;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    var barwidth = width / 10;
+
+    var c=document.getElementById("localoilFlag");
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 3,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 5,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 7,0,barwidth,height);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 9,0,barwidth,height);
+
+    var artificiallength = turns.length + 7;
+    var divisor = '1.'+artificiallength.toString();
+    var divisor = 5.7;            
+    var textheight = (height / divisor);
+    var textString = turns.trim();
+    var ctx = c.getContext("2d");
+    ctx.font= textheight.toString()+"px Verdana";
+    context.fillStyle = 'white';
+    textWidth = ctx.measureText(textString ).width;
+    ctx.fillText(textString , (width/2) - (textWidth / 2), (height/2) - (textheight/2));
+
+    canvas.addEventListener("click", clearlocaloil, false);
 }
 
 
