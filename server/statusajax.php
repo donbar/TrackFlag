@@ -34,8 +34,10 @@ hideStandingYellowFlag();
 hideDebrisFlag();
 hidewavingYellow();
 hideCheckeredFlag();
-hideDownOilFlag();
-showDownOilFlag(1,4);
+if (typeof hideDownOilFlag == "function") { 
+    hideDownOilFlag();
+}
+
 ';
 
 $gscale = 0;
@@ -105,8 +107,9 @@ while ($event_row = $event_result->fetch(PDO::FETCH_ASSOC)){
         $lscale++;
     }  
     if ($event_row['active'] == 1 && $flag == 12){
-        $command .= "hideDownOilFlag('" . $event_row['turn']."',lscale);";
-        $command .= "showDownOilFlag('" . $event_row['turn']."',lscale);";
+        $command .= "if ( typeof( showDownOilFlag) == 'function') { 
+                        showDownOilFlag('" . $event_row['turn']."', lscale);
+                        }";
         $lscale++;
     }     
 }

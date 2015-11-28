@@ -638,3 +638,83 @@ randomrefresh = 500;
 wavingyellowTimeout = setTimeout(blinkwavingYellow, randomrefresh, turn, scale, even);    
         
 }
+
+function hideDownOilFlag(scale){
+    document.getElementById("oilFlag").style.display = "none";
+
+}
+
+function showDownOilFlag(turn, scale){
+    var canvas = document.getElementById('oilFlag');
+    var context = canvas.getContext('2d');
+
+    document.getElementById("oilFlag").style.display = "inline-block";
+
+    var canvas = document.getElementById('oilFlag');
+    var context = canvas.getContext('2d');
+
+    var clientHeight = document.getElementById('localflags').clientHeight;
+    var clientWidth = document.getElementById('localflags').clientWidth * (1 / scale) - 10;
+
+
+    // resize the canvas
+    canvas.height = clientHeight;
+    canvas.width = clientWidth;
+
+    var barwidth = clientWidth / 10;
+
+    context.beginPath();
+    context.rect(0, 0, clientWidth, clientHeight);
+    context.fillStyle = 'purple';
+    context.fill();
+    context.lineWidth = 1;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    var c=document.getElementById("oilFlag");
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth,0,barwidth,clientHeight);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 3,0,barwidth,clientHeight);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 5,0,barwidth,clientHeight);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 7,0,barwidth,clientHeight);
+
+    var ctx=c.getContext("2d");
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'black';
+    ctx.fillRect(barwidth * 9,0,barwidth,clientHeight);
+
+
+    if ( turn ) {
+
+            var artificiallength = turn.length + 7;
+            var divisor = '1.'+artificiallength.toString();
+            var divisor = 2.4;            
+            var textheight = (clientHeight / divisor);
+            var ctx = c.getContext("2d");
+            var textString = turn;
+            ctx.font= textheight.toString()+"px Verdana";
+            context.fillStyle = 'white';
+            textWidth = ctx.measureText(textString ).width;
+            ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), (clientHeight) - (textheight/2));
+    }
+
+}

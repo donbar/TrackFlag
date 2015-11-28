@@ -36,7 +36,8 @@ while ($event_row = $event_result->fetch(PDO::FETCH_ASSOC)) {
 	file_put_contents('don.txt','in here');
 	//print getDistance($lat, $lon, $event_row['latitude'], $event_row['longitude']) . "<br>";
 	//if (getDistance($lat, $lon, $event_row['latitude'], $event_row['longitude']) < 10000 || $lat == 0 && $lon == 0){
-		print "<button style='z-index:2147483647' class='button button-large button-energized' onclick='document.trackflag.event_id.value=".$event_row['evid'].";clearLogo(); clearMessage(); getGlobalCommand();'>". $event_row['track_name']."</button>&nbsp;";
+		print "<button style='z-index:2147483647' class='button button-large button-energized' onclick='document.trackflag.event_id.value=".$event_row['evid'].";clearLogo(); 
+		clearMessage(); getGlobalCommand();if(typeof getConfig == \"function\"){getConfig();}'>". $event_row['track_name']."</button>&nbsp;";
 	//}
 }
 
