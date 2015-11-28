@@ -1,15 +1,121 @@
 var wavingyellowTimeout;
 var geteventtimeout;
+
+
+
+/*
+$ionicPlatform.ready(function() {
+   //Check the position with $cordovaGeolocation. This one is just a function
+    checkPosition();
+});
+*/
+
+function getConfig(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            eval(xmlhttp.responseText);
+            
+        }else if((xmlhttp.status == 0 || xmlhttp.status == 404) && xmlhttp.readyState == 4){
+            // lost connection with server, clear screen and show oopsies div
+            
+        }
+    }
+    var url = 'https://trackflag.nasasafety.com/server/configajax.php?event_id=' + document.getElementById('event_id').value.toString();
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+
+
+function checkPosition(){
+     var startPos;
+     navigator.geolocation.getCurrentPosition(function(position) {
+        startPos = position;
+
+        var d = new Date();
+        var t = d.getTime();
+       
+
+        var hour = d.getHours();
+        var min = d.getMinutes();
+        var sec = d.getSeconds();
+
+
+        hour = (hour > 12 ? hour - 12: hour);
+        hour = (hour < 10 ? "0" : "") + hour;        
+        min = (min < 10 ? "0" : "") + min;
+        sec = (sec < 10 ? "0" : "") + sec;
+
+        document.getElementById('localtime').value = hour + ':'+min+':'+sec;
+
+
+        // If we haven't moved and an event has been selected; check.
+        // If no event selected, ignore this stuff.
+        if (document.getElementById('startLat').value == startPos.coords.latitude.toFixed(4)
+            && document.getElementById('startLon').value == startPos.coords.longitude.toFixed(4)
+            && document.getElementById('event_id').value != ''
+            && document.getElementById("controlmessages").value != 0){
+                // car hasn't moved, been 10 seconds yet?
+                // someday we'll add GPS for paddock/pre-grid here
+                if (document.getElementById('geotime').value + 10 > t){
+                    //show text messages
+                    document.getElementById('container').className='hidecontainer';
+                    document.getElementById('messagesfromcontrol').className='showmessages';
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            //document.getElementById("lostconnection").style.display = "none";
+                            
+                            document.getElementById('messagesfromcontrol').innerHTML = xmlhttp.responseText;
+                            
+                        }else if((xmlhttp.status == 0 || xmlhttp.status == 404) && xmlhttp.readyState == 4){
+                            // lost connection with server, clear screen and show oopsies div
+                            document.getElementById('messagesfromcontrol').innerHTML = 'Connection lost...';
+                        }
+                    }
+                    var url = 'https://trackflag.nasasafety.com/server/controlmessageajax.php?event_id=' + document.getElementById('event_id').value.toString();
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+                }
+        }else{
+            //position has changed, so update time
+            document.getElementById('geotime').value = t;
+            document.getElementById('controlmessages').className='hidemessages';
+            document.getElementById('container').className='container';
+            // and show flags
+
+        }
+
+        // update position regardless of what happened above
+        document.getElementById('startLat').value = startPos.coords.latitude.toFixed(4);
+        document.getElementById('startLon').value = startPos.coords.longitude.toFixed(4);
+
+
+        setTimeout(checkPosition, 3000);
+
+    }, function(error) {
+        if (error.code == 1){
+            alert('GPS permission denied.  You will not see messages, only flags.');
+        }else if (error.code == 2){
+            alert('GPS data not available.  You will not see messages, only flags.');
+        }else if (error.code == 3){
+            alert('Timed out retrieving GPS data.  You will not see messages, only flags.');
+        }else{
+            alert('Unable to obtain GPS data.  You will not see messages, only flags.');
+        }
+     });
+}
+
 function getRaceEvent(){
         var xmlhttpevent = new XMLHttpRequest();
         xmlhttpevent.onreadystatechange = function() {
             if (xmlhttpevent.readyState == 4 && xmlhttpevent.status == 200) {
-                document.getElementById("lostconnection").style.display = "none";
+                //document.getElementById("lostconnection").style.display = "none";
                 document.getElementById("txtMessage").innerHTML = xmlhttpevent.responseText;
                 clearTimeout(geteventtimeout);
             }else if((xmlhttpevent.status == 0 || xmlhttpevent.status == 404) && xmlhttpevent.readyState == 4){
                 // lost connection with server, clear screen and show oopsies div
-                document.getElementById("lostconnection").style.display = "inline-block";
+                //document.getElementById("lostconnection").style.display = "inline-block";
                 randomrefresh = 2 * 1000;
                 geteventtimeout = setTimeout(getRaceEvent, randomrefresh, lat, lon );
             }
@@ -24,17 +130,19 @@ function clearLogo(){
     document.getElementById("container").style.backgroundColor = "#c0c0c0";
     document.getElementById("globalflags").style.backgroundColor = "#c0c0c0";
     document.getElementById("localflags").style.backgroundColor = "#c0c0c0";
+    document.getElementById("container").display = "none";
 }
 
 function clearMessage(){
     document.getElementById("txtMessage").innerHTML = "";
 }
 
+
 function getGlobalCommand() {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("lostconnection").style.display = "none";
+                    //document.getElementById("lostconnection").style.display = "none";
                     eval(xmlhttp.responseText);
                 }else if((xmlhttp.status == 0 || xmlhttp.status == 404) && xmlhttp.readyState == 4){
                     // lost connection with server, clear screen and show oopsies div
@@ -45,21 +153,21 @@ function getGlobalCommand() {
                     hideRedFlag();
                     hideWhiteFlag();
                     hideBlackFlag();
+                    hideCheckeredFlag();
                     hideStandingYellowFlag();
                     hideDebrisFlag();
+                    hideDownOilFlag();
                     hidewavingYellow();
-                    hideCheckeredFlag();
-                    document.getElementById("lostconnection").style.display = "inline-block";
+                    //document.getElementById("lostconnection").style.display = "inline-block";
                 }
             }
             var url = 'https://trackflag.nasasafety.com/server/statusajax.php?event_id=' + document.getElementById('event_id').value.toString();
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
 
-        randomrefresh = 2 * 1000;
+        randomrefresh = 500;
         setTimeout(getGlobalCommand, randomrefresh );
 }
-
 
 function showError(error) {
     switch(error.code) {
@@ -114,7 +222,7 @@ function showRedFlag(scale){
     ctx.font=fontsize.toString()+"px Verdana";
     context.fillStyle = 'white';
     textWidth = ctx.measureText(textString ).width;
-    ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
+    //ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
 }
 
 
@@ -153,7 +261,7 @@ function showDoubleYellowFlag(scale){
     ctx.font=fontsize.toString()+"px Verdana";
     context.fillStyle = 'black';
     textWidth = ctx.measureText(textString ).width;
-    ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
+    //ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
 }
 
 
@@ -193,7 +301,7 @@ function showGreenFlag(scale){
     ctx.font=fontsize.toString()+"px Verdana";
     context.fillStyle = 'white';
     textWidth = ctx.measureText(textString ).width;
-    ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
+    //ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
 }
 
 function hideWhiteFlag(){
@@ -230,13 +338,35 @@ function showWhiteFlag(scale){
     ctx.font=fontsize.toString()+"px Verdana";
     context.fillStyle = 'black';
     textWidth = ctx.measureText(textString ).width;
-    ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
+    //ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
 
+}
+
+function hideCheckeredFlag(){
+    document.getElementById("checkeredFlag").style.display = "none";
+}
+
+
+function showCheckeredFlag(scale){
+    document.getElementById("checkeredFlag").style.display = "inline-block";
+
+    var canvas = document.getElementById('checkeredFlag');
+    var context = canvas.getContext('2d');
+
+    var clientHeight = document.getElementById('globalflags').clientHeight;
+    var clientWidth = document.getElementById('globalflags').clientWidth * (1 / scale) - 10;
+
+    // resize the canvas
+    canvas.height = clientHeight;
+    canvas.width = clientWidth;
+
+    canvas.style = 'checkered';
 }
 
 function hideBlackFlag(){
     document.getElementById("blackFlag").style.display = "none";
 }
+
 
 function showBlackFlag(scale){
     document.getElementById("blackFlag").style.display = "inline-block";
@@ -269,7 +399,7 @@ function showBlackFlag(scale){
     ctx.font=fontsize.toString()+"px Verdana";
     context.fillStyle = 'white';
     textWidth = ctx.measureText(textString ).width;
-    ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
+    //ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
 
 }
 
@@ -324,7 +454,7 @@ function showSafetyFlag(scale){
     ctx.font= fontsize.toString()+"px Verdana";
     context.fillStyle = 'black';
     textWidth = ctx.measureText(textString ).width;
-    ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
+    //ctx.fillText(textString , (clientWidth/2) - (textWidth / 2), textheight);
 }
 
 
@@ -417,26 +547,6 @@ function showStandingYellowFlag(turn, scale){
 
 }
 
-function hideCheckeredFlag(){
-    document.getElementById("checkeredFlag").style.display = "none";
-}
-
-function showCheckeredFlag(scale){
-    document.getElementById("checkeredFlag").style.display = "inline-block";
-
-    var canvas = document.getElementById('checkeredFlag');
-    var context = canvas.getContext('2d');
-
-    var clientHeight = document.getElementById('globalflags').clientHeight;
-    var clientWidth = document.getElementById('globalflags').clientWidth * (1 / scale) - 10;
-
-    // resize the canvas
-    canvas.height = clientHeight;
-    canvas.width = clientWidth;
-
-    canvas.style = 'checkered';
-}
-
 function hideDebrisFlag(scale){
     document.getElementById("debrisFlag").style.display = "none";
 
@@ -516,6 +626,7 @@ function showDebrisFlag(turn, scale){
     }
 
 }
+
 
 function hidewavingYellow(scale){
     document.getElementById("wavingYellow").style.display = "none";
@@ -625,7 +736,7 @@ function blinkwavingYellow(turn, scale, even){
                         var divisor = '1.'+artificiallength.toString();
                         var divisor = 2.4;            
                         var textheight = (clientHeight / divisor);
-                        var textString = turn.trim();
+                        var textString = turn;
                         var ctx = canvas.getContext("2d");
                         ctx.font= textheight.toString()+"px Verdana";
                         context.fillStyle = 'black';
@@ -634,7 +745,7 @@ function blinkwavingYellow(turn, scale, even){
                 }                 
             }
             
-randomrefresh = 500;
+randomrefresh = 250;
 wavingyellowTimeout = setTimeout(blinkwavingYellow, randomrefresh, turn, scale, even);    
         
 }
@@ -718,3 +829,4 @@ function showDownOilFlag(turn, scale){
     }
 
 }
+
